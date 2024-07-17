@@ -1,0 +1,83 @@
+<th:block th:fragment="footer" xmlns:th="http://www.thymeleaf.org">
+    <footer>
+        <ul class="footer-images">
+            <li><img src="/files/Image.png" alt="first image"></li>
+            <li><img src="/files/Image (1).png" alt="second image"></li>
+            <li class="p-relative">
+                <div class="ellipse">
+                    <a href="https://www.instagram.com/_discipless_/" target="_blank">
+                        <div class="instagram-follow">
+                            <span class="lato-text">Follow Me</span>
+                            <div class="d-flex align-items-center">
+                                <svg style="margin-right: 4px" width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_2_462)">
+                                        <path d="M9.91663 1.16663H4.08329C2.47246 1.16663 1.16663 2.47246 1.16663 4.08329V9.91663C1.16663 11.5275 2.47246 12.8333 4.08329 12.8333H9.91663C11.5275 12.8333 12.8333 11.5275 12.8333 9.91663V4.08329C12.8333 2.47246 11.5275 1.16663 9.91663 1.16663Z"
+                                              stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"/>
+                                        <path d="M9.3332 6.63243C9.40519 7.11791 9.32227 7.61372 9.09623 8.04936C8.87019 8.48499 8.51254 8.83826 8.07415 9.05891C7.63577 9.27956 7.13896 9.35636 6.65441 9.27839C6.16986 9.20042 5.72223 8.97165 5.37519 8.62461C5.02815 8.27757 4.79938 7.82994 4.72141 7.34539C4.64344 6.86084 4.72024 6.36404 4.94089 5.92565C5.16155 5.48726 5.51481 5.12961 5.95044 4.90357C6.38608 4.67753 6.88189 4.59461 7.36737 4.6666C7.86258 4.74003 8.32103 4.97079 8.67503 5.32478C9.02902 5.67877 9.25977 6.13723 9.3332 6.63243Z"
+                                              stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"/>
+                                        <path d="M10.2084 3.79163H10.2142" stroke="white" stroke-width="2"
+                                              stroke-linecap="round" stroke-linejoin="round"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_2_462">
+                                            <rect width="14" height="14" fill="white"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <span class="lato-text bold">Instagram</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <img src="/files/Image (2).png" alt="third image"></li>
+            <li><img src="/files/Image (3).png" alt="fourth image"></li>
+            <li><img src="/files/Image (4).png" alt="fifth image"></li>
+        </ul>
+        <section>
+            <ul class="footer-info d-flex justify-content-space-between">
+                <li>
+                    <div class="info-wrapper">
+                        <h3 class="footer-header">About</h3>
+                        <p class="light-lato light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Placerat posuere mauris ac scelerisque. Gravida id dui arcu nibh </p>
+                    </div>
+                </li>
+                <li>
+                    <h3 class="footer-header">Recipes</h3>
+                    <ul class="recipes-links">
+                        <li><a class="light-lato light-grey" href="#">Browse Recipes</a></li>
+                        <li><a class="light-lato light-grey" href="#">Recipe Page</a></li>
+                        <li><a class="light-lato light-grey" href="#">Submit Recipe</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="info-wrapper">
+                        <h3 class="footer-header">Newsletter</h3>
+                        <p class="light-lato light-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Placerat posuere mauris </p>
+                        <form action="/subscribe-user" method="post">
+                            <div class="newsletter-wrapper d-flex">
+                                <input class="newsletter-input" name="userEmail" type="email">
+                                <input type="submit" class="subscribe-btn" value="Subscribe">
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <div class="copyright-wrapper">
+            <div class="d-flex align-items-center   ">
+                <svg style="margin-right: 7px" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 0C15.52 0 20 4.48 20 10C20 15.52 15.52 20 10 20C4.48 20 0 15.52 0 10C0 4.48 4.48 0 10 0ZM10 2C5.58 2 2 5.58 2 10C2 14.42 5.58 18 10 18C14.42 18 18 14.42 18 10C18 5.58 14.42 2 10 2ZM10 5C11.82 5 13.413 5.973 14.288 7.428L12.574 8.457C12.3043 8.00724 11.9213 7.63605 11.4634 7.38045C11.0055 7.12484 10.4885 6.99374 9.96412 7.00023C9.43971 7.00672 8.92617 7.15056 8.4747 7.41742C8.02323 7.68428 7.6496 8.06483 7.39107 8.52112C7.13254 8.97742 6.99815 9.49351 7.00128 10.0179C7.00442 10.5424 7.14498 11.0568 7.40895 11.51C7.67292 11.9632 8.05107 12.3392 8.5057 12.6007C8.96033 12.8621 9.47556 12.9998 10 13C10.5181 13.0003 11.0275 12.8664 11.4785 12.6112C11.9294 12.356 12.3065 11.9883 12.573 11.544L14.288 12.572C13.726 13.5106 12.8716 14.239 11.8559 14.6453C10.8402 15.0517 9.71922 15.1137 8.6649 14.8217C7.61058 14.5298 6.68114 13.9 6.01914 13.029C5.35713 12.1581 4.99912 11.094 5 10C5 7.24 7.24 5 10 5Z"
+                          fill="white"/>
+                </svg>
+                <p class="light-lato white">Copyright 2020 by <span class="bold">ojjomedia</span>. All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </footer>
+</th:block>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="~{section/head ::head}"></th:block>
+    <th:block th:insert="~{section/bootstrap ::bootstrap}"></th:block>
+    <title>CULINARY_BLOG</title>
+</head>
+<body>
+<th:block th:insert="~{section/header ::header}"></th:block>
+<main>
+    <div class="container">
+        <form th:action="'/recipe/edit/' + ${dto.id}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="inputFile">Add new recipe image</label>
+                <input class="form-control" type="file" id="inputFile" name="file">
+            </div>
+            <div class="mb-3">
+                <label for="recipeName">Enter recipe name</label>
+                <input id="recipeName" type="text" class="form-control" name="recipeName" th:value="${dto.recipeName}"
+                       placeholder="Recipe name...">
+            </div>
+            <div class="mb-3">
+                <label for="timeToMake">Enter time to make recipe ( in minutes )</label>
+                <input id="timeToMake" type="number" th:value="${dto.timeToMake}" name="timeToMake"
+                       class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label for="searchDescription">Enter short description ( will appear on main page ) </label>
+                <input id="searchDescription" type="text" class="form-control" th:value="${dto.shortDescription}"
+                       name="shortDescription" placeholder="Search description...">
+            </div>
+            <div class="mb-3">
+                <label for="text">Enter the text of the blog</label>
+                <textarea id="text" class="form-control" name="text" th:text="${dto.text}"></textarea>
+            </div>
+            <div class="mb-3">
+                <label>Click the button to add new ingredient input</label>
+                <div class="mb-3">
+                    <button id="addIngredient" class="btn btn-primary" type="button">+</button>
+                    <button type="button" id="removeIngredient" class="btn btn-danger">-</button>
+                </div>
+                <div id="ingredientInputs">
+                    <!--                    <th:block th:each="ingredient : ${dto.ingredients}">-->
+                    <!--                        <label>Ingredient</label>-->
+                    <!--                        <input type="text" class="form-control" name="newIngredients" th:value="${ingredient.ingredientName}">-->
+                    <!--                    </th:block>-->
+                </div>
+            </div>
+            <div class="mb-3">
+                <input type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Add">
+            </div>
+        </form>
+    </div>
+</main>
+<th:block th:insert="~{section/footer ::footer}"></th:block>
+<th:block th:insert="~{section/scripts ::scripts}"></th:block>
+<script>
+    document.addEventListener("DOMContentLoaded", (event) => {
+        const addIngredient = document.getElementById("addIngredient");
+        const removeIngredient = document.getElementById("removeIngredient");
+        const ingredientInputs = document.getElementById("ingredientInputs");
+        addIngredient.addEventListener("click", (event)=>{
+            const inputElement = document.createElement("input");
+            const labelElement = document.createElement("label");
+            labelElement.innerText = "Ingredient";
+            ingredientInputs.appendChild(labelElement);
+            inputElement.setAttribute("name", "newIngredients");
+            inputElement.className = "form-control mb-3";
+            ingredientInputs.appendChild(inputElement);
+        })
+        removeIngredient.addEventListener("click", (event)=>{
+            if(ingredientInputs.childElementCount > 0) {
+                ingredientInputs.removeChild(ingredientInputs.lastChild);
+                ingredientInputs.removeChild(ingredientInputs.lastChild);
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{section/head ::head}">
+    <meta charset="UTF-8">
+    <title>CULINARY_BLOG</title>
+</head>
+<body>
+<th:block th:insert="~{section/header ::header}"></th:block>
+<main>
+    <div class="webinar-grid">
+        <th:block th:each="recipe : ${recipes}">
+            <a th:href="'/recipe/details/' + ${recipe.id}" class="link-block">
+                <div class="jumbotron left-right-jumbotron-block">
+                    <div class="webinar-image-container">
+                        <img th:src="'/recipeImages/' + ${recipe.imageUrl}" th:alt="${recipe.recipeName}">
+                    </div>
+                    <h2 class="dundas-blue-text-long" th:text="${recipe.recipeName}"></h2>
+                    <div class="webinar-content-box">
+                        <p th:text="${recipe.shortDescription}"></p>
+                        <p th:text="'Created by : '+ ${recipe.user.username}"></p>
+                        <div class="mt-3">
+                            <p th:text="${#temporals.format(recipe.publishDate,'yyyy-MM-dd HH:mm:ss')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </th:block>
+    </div>
+</main>
+<th:block th:insert="~{section/footer ::footer}"></th:block>
+<th:block th:insert="~{section/scripts ::scripts}"></th:block>
+</body>
+</html>

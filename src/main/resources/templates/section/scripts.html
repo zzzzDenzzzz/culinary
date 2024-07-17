@@ -1,0 +1,22 @@
+<script th:fragment="scripts" xmlns:th="www.thymeleaf.org">
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const searchWrapper = document.getElementById('search-wrapper');
+        const searchElements = document.getElementById('search-elements')
+
+        searchInput.addEventListener('input', function(event) {
+            const inputValue = event.target.value;
+            if(inputValue.length > 0){
+                searchElements.classList = [];
+                searchElements.classList.add('disable-search-elems');
+            }
+            else{
+                searchElements.classList = [];
+                searchElements.classList.add('search-elements');
+            }
+        });
+        searchWrapper.addEventListener('click', function () {
+            searchInput.focus();
+        })
+    });
+</script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{section/detailsHead ::detailsHead}">
+    <meta charset="UTF-8">
+    <title>CULINARY_BLOG</title>
+</head>
+<body>
+<th:block th:insert="~{section/header ::header}"></th:block>
+<main>
+    <div id="main-content" class="blog-page">
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card single_post">
+                        <div class="body">
+                            <h2 th:if="${!recipe.getUser().isAccountNonLocked()}" style="color: red">The user is
+                                banned!</h2>
+                            <th:block th:if="${userId == recipe.user.id || role == 'ADMIN'}">
+                                <div class="row">
+                                    <form th:action="'/recipe/edit/' + ${recipe.id}" method="get">
+                                        <button class="btn btn-outline-primary mr-1">Edit</button>
+                                    </form>
+                                    <form th:action="'/recipe/delete/' + ${recipe.id}" method="post">
+                                        <button class="btn btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </th:block>
+                            <h2 th:text="'Created by user : ' + ${recipe.user.username}"></h2>
+                            <div class="img-post">
+                                <img class="d-block img-fluid" th:src="'/recipeImages/' + ${recipe.imageUrl}"
+                                     th:alt="${recipe.recipeName}" alt="img">
+                            </div>
+                            <h3 th:text="${recipe.recipeName}"></h3>
+                            <p th:text="${recipe.text}"></p>
+                            <h4>Ingredients:</h4>
+                            <ul>
+                                <li th:each="ingredient : ${recipe.ingredients}"
+                                    th:text="${ingredient.ingredientName}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2 th:text="'Comments ' + ${recipe.comments.size()}">Comments </h2>
+                        </div>
+                        <div class="body">
+                            <ul class="comment-reply list-styled">
+                                <li class="row clearfix" th:each="comment : ${recipe.comments}">
+                                    <div class="icon-box col-md-2 col-4">
+                                        <img class="img-fluid img-thumbnail"
+                                             src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"
+                                             alt="User avatar"></div>
+                                    <div class="text-box col-md-10 col-8 p-l-0 p-r0">
+                                        <h5 class="m-b-0" th:text="${comment.user.getUsername()}"></h5>
+                                        <p th:text="${comment.text}"></p>
+                                        <ul class="list-inline">
+                                            <li><small th:text="${comment.publishDate}"></small></li>
+                                            <li><a href="javascript:void(0);">Reply</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div th:if="${username != null }" class="card">
+                        <div class="body">
+                            <div class="comment-form">
+                                <h2 class="p-3">Comments</h2>
+                                <form class="row clearfix" method="post" th:action="@{/add-comment}">
+                                    <input type="hidden" name="recipeId" th:value="${recipe.id}">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea rows="4" class="form-control no-resize" name="text"
+                                                      placeholder="Please type what you want..."></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-block btn-primary">SUBMIT</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<th:block th:insert="~{section/footer ::footer}"></th:block>
+<th:block th:insert="~{section/scripts ::scripts}"></th:block>
+</body>
+</html>

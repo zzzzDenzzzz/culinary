@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Registration</title>
+  <link
+          type="text/css" href="/css/authorization/authorization.css" rel="stylesheet"
+  />
+  <style>
+    .text-danger{
+      color: red;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="title">
+    Register Form
+  </div>
+  <form th:action="@{/register/save}" method="post" th:object="${dto}">
+    <p th:if="${#fields.hasErrors('username')}"  class="text-danger">Username error</p>
+    <p th:if="${#fields.hasErrors('email')}"  class="text-danger">Email error</p>
+    <p th:if="${#fields.hasErrors('password')}" class="text-danger">Password error</p>
+    <div class="field">
+      <input type="text" th:field="*{username}" required>
+      <label>Username</label>
+    </div>
+    <div class="field">
+      <input type="text" th:field="*{email}"  required>
+      <label>Email Address</label>
+    </div>
+    <div class="field">
+      <input th:field="*{password}" type="password" required>
+      <label>Password</label>
+    </div>
+    <div class="field" style="margin-bottom: 40px">
+      <input th:field="*{repeatPassword}" type="password" required>
+      <label>Repeat password</label>
+    </div>
+    <div class="field">
+      <input type="submit" value="Register">
+    </div>
+  </form>
+</div>
+</body>
+</html>

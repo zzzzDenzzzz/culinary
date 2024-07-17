@@ -1,0 +1,134 @@
+.footer-images {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+.footer-images img {
+    width: 103%;
+    height: auto;
+    display: block;
+}
+.ellipse {
+    position: absolute;
+    width: 138px;
+    height: 138px;
+    background-color: rgba(216, 72,79, 0.9);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.instagram-follow{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.p-relative{
+    position: relative;
+}
+
+.info-wrapper{
+    width: 270px;
+}
+
+.light-lato{
+    line-height: 2;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: lighter;
+}
+.light-grey{
+    color: rgba(45, 45, 45, 0.6);
+}
+.footer-header{
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.copyright-wrapper{
+    height: 63px;
+    width: 100%;
+    background-color: #2D2D2D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.white{
+    color: #FFFFFF;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+
+.justify-content-space-between{
+    justify-content: space-between
+}
+
+.footer-info{
+    padding: 15px 4%;
+}
+
+.subscribe-btn{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+    border: none;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    width: 75px;
+    height: inherit;
+    background-color:  #FE4A51;
+}
+
+.newsletter-input{
+    width: inherit;
+    font-family: 'Lato', sans-serif;
+    height: inherit;
+    border: none;
+    background: #DEDADA;
+
+}
+
+.newsletter-input:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+
+.newsletter-wrapper{
+    width: 270px;
+    height: 33px;
+}
+
+footer section{
+    margin-bottom: 108px;
+}
+
+.recipes-links li {
+    position: relative;
+    padding-left: 15px;
+}
+
+.recipes-links li::before {
+    position: absolute;
+    content: '\2022';
+    color: #FE4A51;
+    font-size: 1.5em;
+    left: 0;
+    margin-right: 3px;
+    top: -2px;
+}

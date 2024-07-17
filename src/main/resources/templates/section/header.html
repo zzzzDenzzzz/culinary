@@ -1,0 +1,32 @@
+<header th:fragment="header" xmlns:th="www.thymeleaf.org">
+    <a href="/"><h2 class="logo"><span class="red">CULINARY_</span><span class="black">BLOG</span></h2></a>
+
+    <ul class="nav-links item-centered">
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Recipes</a></li>
+        <li th:if="${username != null}"><a href="/recipe/add">Add recipe</a></li>
+        <li><a href="#">Contact</a></li>
+        <li th:if="${role == 'ADMIN'}"><a href="/admin/show-users">( Admin ) Show users</a></li>
+    </ul>
+
+    <div class="d-flex">
+        <th:block th:if="${username == null}">
+            <div class="mr-3">
+                <a href="/login">Login</a>
+            </div>
+            <div>
+                <a href="/register">Register</a>
+            </div>
+        </th:block>
+
+        <th:block th:if="${username != null}">
+            <div class="mr-3">
+                <a th:if="${userId != null}" th:href="'user/' + ${userId}" th:text="${username}"></a>
+            </div>
+            <div>
+                <a href="/logout">Logout</a>
+            </div>
+        </th:block>
+    </div>
+
+</header>

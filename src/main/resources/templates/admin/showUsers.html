@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>CULINARY_BLOG</title>
+  <th:block th:insert="~{section/head ::head}"></th:block>
+  <th:block th:insert="~{section/bootstrap ::bootstrap}"></th:block>
+</head>
+<body>
+<th:block th:insert="~{section/header ::header}"></th:block>
+<main>
+  <div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Role</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.username}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.role}"></td>
+      <th:block th:if="${userId != user.id}">
+      <td>
+        <form th:if="${user.accountNonLocked}" method="post" th:action="@{/admin/ban-user/{userId}(userId=${user.id})}">
+          <button class="btn btn-outline-danger">BAN</button>
+        </form>
+        <form th:if="${!user.accountNonLocked}" method="post" th:action="@{/admin/unban-user/{userId}(userId=${user.id})}">
+          <button class="btn btn-outline-success">UNBAN</button>
+        </form>
+      </td>
+      <td>
+        <form method="post" th:action="@{/admin/delete-user/{userId}(userId=${user.id})}">
+          <button class="btn btn-outline-danger">DELETE</button>
+        </form>
+      </td>
+      </th:block>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+</main>
+<th:block th:insert="~{section/footer ::footer}"></th:block >
+<th:block th:insert="~{section/scripts ::scripts}"></th:block >
+</body>
+</html>
