@@ -12,7 +12,7 @@
             <a th:href="'/recipe/details/' + ${recipe.id}" class="link-block">
                 <div class="jumbotron left-right-jumbotron-block">
                     <div class="webinar-image-container">
-                        <img th:src="'/recipeImages/' + ${recipe.imageUrl}" th:alt="${recipe.recipeName}">
+                        <img th:src="'/recipeImages/' + ${recipe.imageUrl}" th:alt="${recipe.recipeName}" alt="img">
                     </div>
                     <h2 class="dundas-blue-text-long" th:text="${recipe.recipeName}"></h2>
                     <div class="webinar-content-box">
