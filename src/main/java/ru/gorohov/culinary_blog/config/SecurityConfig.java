@@ -58,8 +58,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         try {
             getAuthorizeHttpRequests(http)
-                    .formLogin(SecurityConfig::getHttpSecurityFormLoginConfigurer)
-                    .logout(SecurityConfig::getHttpSecurityLogoutConfigurer);
+                    .formLogin(SecurityConfig::getHttpSecurityFormLoginConfigure)
+                    .logout(SecurityConfig::getHttpSecurityLogoutConfigure);
 
             return http.build();
         }
@@ -98,7 +98,7 @@ public class SecurityConfig {
                 );
     }
 
-    private static void getHttpSecurityFormLoginConfigurer(FormLoginConfigurer<HttpSecurity> form) {
+    private static void getHttpSecurityFormLoginConfigure(FormLoginConfigurer<HttpSecurity> form) {
         form
                 .loginPage(FORM_LOGIN)
                 .defaultSuccessUrl(PUBLIC_URLS[0])
@@ -106,7 +106,7 @@ public class SecurityConfig {
                 .permitAll();
     }
 
-    private static void getHttpSecurityLogoutConfigurer(LogoutConfigurer<HttpSecurity> logout) {
+    private static void getHttpSecurityLogoutConfigure(LogoutConfigurer<HttpSecurity> logout) {
         logout
                 .logoutRequestMatcher(new AntPathRequestMatcher(LOGOUT))
                 .logoutSuccessUrl("/")
