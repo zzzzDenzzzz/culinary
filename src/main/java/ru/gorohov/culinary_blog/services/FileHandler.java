@@ -25,7 +25,7 @@ public class FileHandler {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         if (fileName.contains("..")) {
-            log.error("Invalid file path: {}", fileName);
+            log.error("Неверный путь к файлу: {}", fileName);
             return null;
         }
 
@@ -36,10 +36,10 @@ public class FileHandler {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            log.info("File stored successfully: {}", fileName);
+            log.info("Файл успешно сохранен: {}", fileName);
             return fileName;
         } catch (IOException e) {
-            log.error("Error storing file: {}", e.getMessage(), e);
+            log.error("Ошибка сохранения файла: {}", e.getMessage(), e);
             return null;
         }
     }
@@ -48,12 +48,12 @@ public class FileHandler {
         try {
             Path filePath = getFilePath(fileName);
             if (Files.deleteIfExists(filePath)) {
-                log.info("File deleted successfully: {}", fileName);
+                log.info("Файл успешно удален: {}", fileName);
             } else {
-                log.warn("File not found: {}", fileName);
+                log.warn("Файл не найден: {}", fileName);
             }
         } catch (IOException e) {
-            log.error("Unable to delete file: {} - {}", fileName, e.getMessage(), e);
+            log.error("Невозможно удалить файл: {} - {}", fileName, e.getMessage(), e);
         }
     }
 
