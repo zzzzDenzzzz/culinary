@@ -5,7 +5,6 @@
         <li><a href="/">Home</a></li>
         <li><a href="/">Recipes</a></li>
         <li th:if="${username != null}"><a href="/recipe/add">Add recipe</a></li>
-        <li><a href="#">Contact</a></li>
         <li th:if="${role == 'ADMIN'}"><a href="/admin/show-users">( Admin ) Show users</a></li>
     </ul>
 
@@ -21,7 +20,7 @@
 
         <th:block th:if="${username != null}">
             <div class="mr-3">
-                <a th:if="${userId != null}" th:href="'user/profile/' + ${userId}" th:text="${username}"></a>
+                <a th:if="${userId != null && role != 'ADMIN'}" th:href="'user/profile/' + ${userId}" th:text="${username}"></a>
             </div>
             <div>
                 <a href="/logout">Logout</a>
