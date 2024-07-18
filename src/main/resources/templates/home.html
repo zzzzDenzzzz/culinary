@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{section/head ::head}">
+<head>
+    <th:block th:insert="~{section/head ::head}"></th:block>
     <meta charset="UTF-8">
     <title>CULINARY_BLOG</title>
 </head>
 <body>
 <th:block th:insert="~{section/header ::header}"></th:block>
+<th:block th:if="${username != null}">
 <main>
     <div class="webinar-grid">
         <th:block th:each="recipe : ${recipes}">
@@ -27,6 +29,7 @@
         </th:block>
     </div>
 </main>
+</th:block>
 <th:block th:insert="~{section/footer ::footer}"></th:block>
 <th:block th:insert="~{section/scripts ::scripts}"></th:block>
 </body>

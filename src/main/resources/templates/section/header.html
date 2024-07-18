@@ -1,12 +1,16 @@
 <header th:fragment="header" xmlns:th="www.thymeleaf.org">
-    <a href="/"><h2 class="logo"><span class="red">CULINARY_</span><span class="black">BLOG</span></h2></a>
+    <th:block th:if="${username != null}">
+        <a href="/"><h2 class="logo"><span class="red">CULINARY_</span><span class="black">BLOG</span></h2></a>
+    </th:block>
 
-    <ul class="nav-links item-centered">
-        <li><a href="/">Home</a></li>
-        <li><a href="/">Recipes</a></li>
-        <li th:if="${username != null}"><a href="/recipe/add">Add recipe</a></li>
-        <li th:if="${role == 'ADMIN'}"><a href="/admin/show-users">( Admin ) Show users</a></li>
-    </ul>
+    <th:block th:if="${username == null}">
+        <div class="animation-text">
+            <h1>CULINARY_BLOG</h1>
+            <div class="animation-text">
+                <h3><span>amazing experiences</span></h3>
+            </div>
+        </div>
+    </th:block>
 
     <div class="d-flex">
         <th:block th:if="${username == null}">
@@ -19,6 +23,11 @@
         </th:block>
 
         <th:block th:if="${username != null}">
+            <ul class="nav-links item-centered">
+                <li><a href="/">Recipes</a></li>
+                <li th:if="${username != null}"><a href="/recipe/add">Add recipe</a></li>
+                <li th:if="${role == 'ADMIN'}"><a href="/admin/show-users">( Admin ) Show users</a></li>
+            </ul>
             <div class="mr-3">
                 <a th:if="${userId != null && role != 'ADMIN'}" th:href="'user/profile/' + ${userId}" th:text="${username}"></a>
             </div>
