@@ -18,11 +18,28 @@ public class IngredientService {
 
     @Transactional
     public void saveAll(List<String> ingredients, Recipe recipe) {
-        Set<Ingredient> ingredientSet = ingredients.stream()
+        if (isNull(ingredients)) return;
+
+        final var ingredientSet = getIngredients(ingredients, recipe);
+
+        saveIngredientsIsNotEmpty(ingredientSet);
+    }
+
+    private static Set<Ingredient> getIngredients(List<String> ingredients, Recipe recipe) {
+        return ingredients
+                .stream()
                 .filter(ingredient -> !ingredient.isBlank())
                 .map(ingredient -> new Ingredient(0L, ingredient, recipe))
                 .collect(Collectors.toSet());
+    }
 
-        ingredientRepository.saveAll(ingredientSet);
+    private void saveIngredientsIsNotEmpty(Set<Ingredient> ingredientSet) {
+        if (!ingredientSet.isEmpty()) {
+            ingredientRepository.saveAll(ingredientSet);
+        }
+    }
+
+    private static boolean isNull(List<String> ingredients) {
+        return ingredients == null || ingredients.isEmpty();
     }
 }
