@@ -1,6 +1,7 @@
 package ru.gorohov.culinary_blog.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,11 +27,14 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Image URL is mandatory")
     @Size(max = 255, message = "Image URL must be less than 255 characters")
     private String imageUrl;
 
+    @NotBlank(message = "Time to make is mandatory")
     private String timeToMake;
 
+    @NotBlank(message = "Recipe name is mandatory")
     @Size(max = 255, message = "Recipe name must be less than 255 characters")
     private String recipeName;
 
@@ -52,4 +56,8 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Comment> comments;
+
+    public boolean hasIngredients() {
+        return ingredients != null && !ingredients.isEmpty();
+    }
 }

@@ -1,5 +1,8 @@
 package ru.gorohov.culinary_blog.services;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import ru.gorohov.culinary_blog.models.Recipe;
 import ru.gorohov.culinary_blog.repositories.RecipeRepository;
@@ -8,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +19,7 @@ import java.util.Optional;
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final FileHandler fileHandler;
+    private final Validator validator;
 
     @Transactional
     public Optional<Recipe> findById(long id) {
@@ -25,12 +30,32 @@ public class RecipeService {
         });
     }
 
+//    @Transactional
+//    public void save(Recipe recipe) {
+//        try {
+//            recipeRepository.save(recipe);
+//        } catch (Exception e) {
+//             log.error("Failed to save recipe", e);
+//        }
+//    }
+
     @Transactional
     public void save(Recipe recipe) {
+        Set<ConstraintViolation<Recipe>> violations = validator.validate(recipe);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<Recipe> violation : violations) {
+                sb.append(violation.getMessage()).append(", ");
+            }
+            throw new ConstraintViolationException("Validation failed: " + sb, violations);
+        }
+
+        if (!recipe.hasIngredients()) throw new IllegalArgumentException("Recipe must have at least one ingredient");
+
         try {
             recipeRepository.save(recipe);
         } catch (Exception e) {
-             log.error("Failed to save recipe", e);
+            log.error("Failed to save recipe", e);
         }
     }
 

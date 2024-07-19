@@ -3,6 +3,7 @@ package ru.gorohov.culinary_blog.controllers;
 import ru.gorohov.culinary_blog.dto.EditRecipeDTO;
 import ru.gorohov.culinary_blog.dto.PostRecipeDTO;
 import ru.gorohov.culinary_blog.config.SecurityUtil;
+import ru.gorohov.culinary_blog.models.Ingredient;
 import ru.gorohov.culinary_blog.models.Recipe;
 import ru.gorohov.culinary_blog.models.User;
 import ru.gorohov.culinary_blog.services.FileHandler;
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/recipe")
@@ -72,8 +75,16 @@ public class RecipeController {
 
     @PostMapping("/add")
     public String postAddRecipe(@ModelAttribute PostRecipeDTO dto, Model model) {
+        if (dto.getIngredients() == null || dto.getIngredients().isEmpty()) {
+            model.addAttribute("error", "Recipe must have at least one ingredient");
+            return "recipe/addRecipe";
+        }
+
         String imageUrl = fileHandler.storeFile(dto.getFile());
-        if (imageUrl == null) return "recipe/addRecipe";
+        if (imageUrl == null) {
+            model.addAttribute("error", "Failed to store the image file");
+            return "recipe/addRecipe";
+        }
 
         Recipe recipe = new Recipe();
         updateRecipeFromDTO(recipe, dto, imageUrl);
@@ -82,7 +93,10 @@ public class RecipeController {
                 .map(userFromSession -> {
                     Long userId = userFromSession.getId();
                     User user = userService.findById(userId).orElse(null);
-                    if (user == null) return "recipe/addRecipe";
+                    if (user == null) {
+                        model.addAttribute("error", "User not found");
+                        return "recipe/addRecipe";
+                    }
                     recipe.setUser(user);
                     recipeService.save(recipe);
                     ingredientService.saveAll(dto.getIngredients(), recipe);
@@ -90,6 +104,7 @@ public class RecipeController {
                 })
                 .orElse("recipe/addRecipe");
     }
+
 
     private EditRecipeDTO mapToEditRecipeDTO(Recipe recipe) {
         return EditRecipeDTO.builder()
@@ -119,5 +134,15 @@ public class RecipeController {
         recipe.setText(dto.getText());
         recipe.setShortDescription(dto.getShortDescription());
         recipe.setImageUrl(imageUrl);
+
+        List<Ingredient> ingredients = dto.getIngredients().stream()
+                .map(ingredientName -> {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.setIngredientName(ingredientName);
+                    ingredient.setRecipe(recipe);
+                    return ingredient;
+                })
+                .toList();
+        recipe.setIngredients(ingredients);
     }
 }
