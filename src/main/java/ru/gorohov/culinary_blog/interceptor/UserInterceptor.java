@@ -1,6 +1,6 @@
 package ru.gorohov.culinary_blog.interceptor;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import ru.gorohov.culinary_blog.config.SecurityUtil;
 import ru.gorohov.culinary_blog.models.User;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Slf4j
 public class UserInterceptor implements HandlerInterceptor {
     @Override
-    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         try {
             Optional<User> optionalUser = SecurityUtil.getUserFromSession();
             optionalUser.ifPresentOrElse(

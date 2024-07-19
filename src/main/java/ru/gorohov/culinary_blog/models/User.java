@@ -42,21 +42,25 @@ public class User implements UserDetails {
         return role.getAuthorities();
     }
 
+    // не истекший
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // не заблокированный
     @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
 
+    // действительный
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    // включенный
     @Override
     public boolean isEnabled() {
         return true;
