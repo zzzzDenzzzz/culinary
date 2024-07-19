@@ -8,27 +8,28 @@
 <body>
 <th:block th:insert="~{section/header ::header}"></th:block>
 <th:block th:if="${username != null}">
-<main>
-    <div class="webinar-grid">
-        <th:block th:each="recipe : ${recipes}">
-            <a th:href="'/recipe/details/' + ${recipe.id}" class="link-block">
-                <div class="jumbotron left-right-jumbotron-block">
-                    <div class="webinar-image-container">
-                        <img th:src="'/recipeImages/' + ${recipe.imageUrl}" th:alt="${recipe.recipeName}" alt="img">
-                    </div>
-                    <h2 class="dundas-blue-text-long" th:text="${recipe.recipeName}"></h2>
-                    <div class="webinar-content-box">
-                        <p th:text="${recipe.shortDescription}"></p>
-                        <p th:text="'Created by : '+ ${recipe.user.username}"></p>
-                        <div class="mt-3">
-                            <p th:text="${#temporals.format(recipe.publishDate,'yyyy-MM-dd HH:mm:ss')}"></p>
+    <main>
+        <div class="webinar-grid">
+            <th:block th:each="recipe : ${recipePage.content}">
+                <a th:href="'/recipe/details/' + ${recipe.id}" class="link-block">
+                    <div class="jumbotron left-right-jumbotron-block">
+                        <div class="webinar-image-container">
+                            <img th:src="'/recipeImages/' + ${recipe.imageUrl}" th:alt="${recipe.recipeName}" alt="img">
+                        </div>
+                        <h2 class="dundas-blue-text-long" th:text="${recipe.recipeName}"></h2>
+                        <div class="webinar-content-box">
+                            <p th:text="${recipe.shortDescription}"></p>
+                            <p th:text="'Created by : '+ ${recipe.user.username}"></p>
+                            <div class="mt-3">
+                                <p th:text="${#temporals.format(recipe.publishDate,'yyyy-MM-dd HH:mm:ss')}"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-        </th:block>
-    </div>
-</main>
+                </a>
+            </th:block>
+        </div>
+        <div th:insert="~{section/pagination :: pagination(${pageNumbers}, ${recipePage})}"></div>
+    </main>
 </th:block>
 <th:block th:insert="~{section/footer ::footer}"></th:block>
 <th:block th:insert="~{section/scripts ::scripts}"></th:block>

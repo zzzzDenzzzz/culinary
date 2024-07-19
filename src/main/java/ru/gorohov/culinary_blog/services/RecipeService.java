@@ -4,6 +4,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.gorohov.culinary_blog.models.Recipe;
 import ru.gorohov.culinary_blog.repositories.RecipeRepository;
 import jakarta.transaction.Transactional;
@@ -21,6 +23,10 @@ public class RecipeService {
     private final FileHandler fileHandler;
     private final Validator validator;
 
+    public Page<Recipe> getRecipes(Pageable pageable) {
+        return recipeRepository.findAll(pageable);
+    }
+
     @Transactional
     public Optional<Recipe> findById(long id) {
         return recipeRepository.findById(id).map(recipe -> {
@@ -29,15 +35,6 @@ public class RecipeService {
             return recipe;
         });
     }
-
-//    @Transactional
-//    public void save(Recipe recipe) {
-//        try {
-//            recipeRepository.save(recipe);
-//        } catch (Exception e) {
-//             log.error("Failed to save recipe", e);
-//        }
-//    }
 
     @Transactional
     public void save(Recipe recipe) {

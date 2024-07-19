@@ -1,0 +1,7 @@
+<div class="container-pagination" th:fragment="pagination(pageNumbers, recipePage)" xmlns:th="www.thymeleaf.org">
+    <ul class="pagination">
+        <li th:each="pageNumber : ${pageNumbers}" th:classappend="${pageNumber == recipePage.number + 1} ? 'active'">
+            <a th:attr="href=@{/?page={pageNumber}&size={size}(pageNumber=${pageNumber}, size=${recipePage.size})}" th:text="${pageNumber}"></a>
+        </li>
+    </ul>
+</div>
