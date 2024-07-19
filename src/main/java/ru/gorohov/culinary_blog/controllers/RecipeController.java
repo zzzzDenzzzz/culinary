@@ -75,16 +75,11 @@ public class RecipeController {
 
     @PostMapping("/add")
     public String postAddRecipe(@ModelAttribute PostRecipeDTO dto, Model model) {
-        if (dto.getIngredients() == null || dto.getIngredients().isEmpty()) {
-            model.addAttribute("error", "Recipe must have at least one ingredient");
-            return "recipe/addRecipe";
-        }
+        final var x = getDTOIngredients(dto, model);
+        if (x != null) return x;
 
-        String imageUrl = fileHandler.storeFile(dto.getFile());
-        if (imageUrl == null) {
-            model.addAttribute("error", "Failed to store the image file");
-            return "recipe/addRecipe";
-        }
+        final var imageUrl = getImageUrl(dto, model);
+        if (imageUrl == null) return "recipe/addRecipe";
 
         Recipe recipe = new Recipe();
         updateRecipeFromDTO(recipe, dto, imageUrl);
@@ -103,6 +98,23 @@ public class RecipeController {
                     return "redirect:/";
                 })
                 .orElse("recipe/addRecipe");
+    }
+
+    private static String getDTOIngredients(PostRecipeDTO dto, Model model) {
+        if (dto.getIngredients() == null || dto.getIngredients().isEmpty()) {
+            model.addAttribute("error", "Recipe must have at least one ingredient");
+            return "recipe/addRecipe";
+        }
+        return null;
+    }
+
+    private String getImageUrl(PostRecipeDTO dto, Model model) {
+        String imageUrl = fileHandler.storeFile(dto.getFile());
+        if (imageUrl == null) {
+            model.addAttribute("error", "Failed to store the image file");
+            return null;
+        }
+        return imageUrl;
     }
 
 
